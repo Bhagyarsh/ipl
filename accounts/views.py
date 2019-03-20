@@ -1,9 +1,11 @@
+from django.contrib.auth import get_user_model
+
 from rest_framework import generics
 from django.contrib.auth import authenticate, login, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, FormView, DetailView, View, UpdateView
 from django.views.generic.edit import FormMixin
@@ -12,21 +14,51 @@ from django.shortcuts import render,redirect
 from django.utils.http import is_safe_url
 from django.utils.safestring import mark_safe
 
+User = get_user_model()
 
-from .forms import LoginForm, ReactivateEmailForm, UserDetailChangeForm
+# from .forms import LoginForm, ReactivateEmailForm, UserDetailChangeForm
+from .forms import RegisterForm
 from .models import  EmailActivation
 
 
 from . import models
-from . import serializers
 
-class UserListView(generics.ListCreateAPIView):
-    queryset = models.CustomUser.objects.all()
-    serializer_class = serializers.UserSerializer
+
+class UserRegisterView(View):
+    template_name = 'accounts/register.html'
+    form_class = RegisterForm
+    success_url = '/login'
+
+    def form_valid(self, form):
+        email = form.cleaned_data.get("email")
+        password = form.cleaned_data.get("password")
+        new_user = User.objects.create(email=email)
+        new_user.set_password(password)
+        new_user.save()
+        return super(UserRegisterView, self).form_valid(form)
+
+
+class LoginView(View):
+    def post(self, request):
+        email = request.POST['email']
+        password = request.POST['password']
+        user = authenticate(email=email, password=password)
+
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+            else:
+                return HttpResponse("Inactive user.")
+        else:
+            return HttpResponseRedirect("accounts:login")
+
+        return render(request, "accounts/login.html")
+
+
 
 class AccountEmailActivateView(FormMixin, View):
     success_url = '/login/'
-    form_class = ReactivateEmailForm
+    # form_class = ReactivateEmailForm
     key = None
     def get(self, request, key=None, *args, **kwargs):
         self.key = key
@@ -72,3 +104,5 @@ class AccountEmailActivateView(FormMixin, View):
     def form_invalid(self, form):
         context = {'form': form, "key": self.key }
         return render(self.request, 'registration/activation-error.html', context)
+
+ 
