@@ -5,7 +5,7 @@
 {% block content %}
 
 <div class="container mt-5">
-  <div class="card" style="width: 600px;">
+  <div class="card">
     <div class="card-body">
       <h1>Register</h1>
     </div> <hr>
@@ -16,17 +16,17 @@
      {% csrf_token %}
 
       <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input type="email" name="Email address" class="form-control" placeholder="Enter email">
+        {{ form.email.label_tag }}
+        {{ form.email }}
         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
       </div>
       <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" name="Password" class="form-control" id="Password1" placeholder="Password">
+        {{ form.password.label_tag }}
+        {{ form.password }}
       </div>
       <div class="form-group">
-        <label for="exampleInputPassword2">Confirm password</label>
-        <input type="password" name="Confirm password" class="form-control" id="Password2" placeholder="Password">
+        {{ form.password2.label_tag }}
+        {{ form.password2 }}
       </div>
 
         <button type="submit" class="btn btn-primary">Register</button>
