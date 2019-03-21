@@ -1,26 +1,18 @@
 {% load static %}
 
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background: #223577;">
-        <a class="navbar-brand" href="#">Brand</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    
-        <div class="navbar" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="login.html">Login</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="register.html">Register</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="leaderboards.html">LeaderBoards</span></a>
-                </li>
-            </ul>
+    <header>
+      <div class="container">
+        <div id="branding">
+          <img src="{% static 'images/ipl.jpeg' %}">
         </div>
-    </nav>
+        <nav>
+          <ul>
+            <li class="current"><a href="index.html">Home</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="register.html">Register</a></li>
+            <li><a href="login.html">Logout</a></li>
+            <li><a href="leaderboards.html">LeaderBoards</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
