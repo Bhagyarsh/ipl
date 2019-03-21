@@ -32,7 +32,7 @@ SECRET_KEY = 'rkt8d9+!y99$=x1ug%=8qnz97)ya!2zr)3&3l4oel)4-w#bcrv'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "rest_framework",
+    'qaformmatch',
     'crispy_forms',
     'accounts',
     'iplcrew'
