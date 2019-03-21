@@ -15,7 +15,7 @@ DEFAULT_ACTIVATION_DAYS = getattr(settings, 'DEFAULT_ACTIVATION_DAYS', 7)
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, firstname, lastname, password=None):
+    def create_user(self, email, first_name, last_name, password=None):
         """
         Creates and saves a User with the given email and password.
         """
@@ -24,36 +24,36 @@ class UserManager(BaseUserManager):
 
         user = self.model(
             email=self.normalize_email(email),
-            firstname=firstname,
-            lastname=lastname
+            first_name=first_name,
+            last_name=last_name
         )
 
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_staffuser(self, email, firstname, lastname, password):
+    def create_staffuser(self, email, first_name, last_name, password):
         """
         Creates and saves a staff user with the given email and password.
         """
         user = self.create_user(
             email,
-            firstname=firstname,
-            lastname=lastname,
+            first_name=first_name,
+            last_name=last_name,
             password=password,
         )
         user.staff = True
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, firstname, lastname, password):
+    def create_superuser(self, email, first_name, last_name, password):
         """
         Creates and saves a superuser with the given email and password.
         """
         user = self.create_user(
             email,
-            firstname=firstname,
-            lastname=lastname,
+            first_name=first_name,
+            last_name=last_name,
             password=password,
         )
         user.staff = True
@@ -70,8 +70,8 @@ class User(AbstractBaseUser):
         max_length=255,
         unique=True,
     )
-    firstname = models.CharField(max_length=255)
-    lastname = models.CharField(max_length=255)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
     Verified = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
     staff = models.BooleanField(default=False)  # a admin user; non super-user
@@ -81,15 +81,15 @@ class User(AbstractBaseUser):
     objects = UserManager()
     USERNAME_FIELD = 'email'
     # Email & Password are required by default.
-    REQUIRED_FIELDS = ['firstname', 'lastname']
+    REQUIRED_FIELDS = ['first_name', 'last_name']
 
     def get_full_name(self):
         # The user is identified by their email address
-        return self.firstname + ' ' + self.lastname
+        return self.first_name + ' ' + self.last_name
 
     def get_short_name(self):
         # The user is identified by their email address
-        return self.firstname
+        return self.first_name
 
     def __str__(self):              # __unicode__ on Python 2
         return self.email
