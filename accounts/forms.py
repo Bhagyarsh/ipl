@@ -79,12 +79,20 @@ class RegisterFormSession(forms.ModelForm):
     last_name = forms.CharField()
     class Meta:
         model = User
-        fields = ('email','first_name','last_name')
+        fields = ('email','first_name','last_name','password')
     def clean_email(self):
         email = self.cleaned_data.get('email')
         qs = User.objects.filter(email=email)
         if qs.exists():
             raise forms.ValidationError("email is taken")
-        return email
-             
+        return email 
+    def save(self, commit=True):
+        user = super(RegisterFormSession, self).save(commit=False)
+        user.email = self.cleaned_data['email']
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.set_password(self.cleaned_data['password'])
+        if commit:
+            user.save()
 
+        return user

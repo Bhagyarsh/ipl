@@ -215,22 +215,22 @@ class EmailActivation(models.Model):
         return False
 
 
-def pre_save_email_activation(sender, instance, *args, **kwargs):
-    if not instance.activated and not instance.forced_expired:
-        if not instance.key:
-            instance.key = unique_key_generator(instance)
-            print(instance.key)
+# def pre_save_email_activation(sender, instance, *args, **kwargs):
+#     if not instance.activated and not instance.forced_expired:
+#         if not instance.key:
+#             instance.key = unique_key_generator(instance)
+#             print(instance.key)
 
 
-pre_save.connect(pre_save_email_activation, sender=EmailActivation)
+# pre_save.connect(pre_save_email_activation, sender=EmailActivation)
 
 
-def post_save_user_create_reciever(sender, instance, created, *args, **kwargs):
-    if created:
-        print(instance)
-        obj = EmailActivation.objects.create(user=instance,
-                                             email=instance.email)
-        print(obj.sent_activation_email())
+# def post_save_user_create_reciever(sender, instance, created, *args, **kwargs):
+#     if created:
+#         print(instance)
+#         obj = EmailActivation.objects.create(user=instance,
+#                                              email=instance.email)
+#         print(obj.sent_activation_email())
 
 
-post_save.connect(post_save_user_create_reciever, sender=User)
+# post_save.connect(post_save_user_create_reciever, sender=User)
