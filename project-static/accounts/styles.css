@@ -2,6 +2,10 @@ img {
 	width: 100px;
 }
 
+.card {
+	margin: 0% 0% 30% 0%;
+}
+
 .card .card-body h1{
 	text-align: center;
 }
@@ -10,7 +14,12 @@ img {
 	margin: 0 50%;
 }
 
-.footer {
-	height: 10%;
-	background-color: lightgrey;
+footer {
+	height: 60px; 
+	background-color: lightgrey; 
+	text-align: center;
+}
+
+footer p {
+	margin-top: 10px; 
 }
