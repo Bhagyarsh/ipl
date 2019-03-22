@@ -42,7 +42,7 @@ class questionAdminForm(forms.ModelForm):
 # 6. Which player will hit most number of boundaries?
 # 7. Who will man of the match?
 
-class questionAdminForm(forms.ModelForm):
+class questionForm(forms.ModelForm):
     class Meta:
         model = question
         fields = ["winner", "tosswinner", "player_mostboundaries",
