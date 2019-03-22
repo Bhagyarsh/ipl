@@ -9,21 +9,29 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
+      {% if user.is_authenticated %}
       <li class="nav-item active">
         <a class="nav-link" href={% url "accounts:home" %}>Home <span class="sr-only">(current)</span></a>
       </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/question/form">Play</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="leaderboards.html">LeaderBoards</a>
+      </li>
+      <li class="nav-item active">
+          <a class="nav-link" href={% url "logout" %}>Logout</a>
+      </li>
+
+      {% else %}
       <li class="nav-item active">
           <a class="nav-link" href={% url 'login' %}>Login</a>
       </li>
       <li class="nav-item active">
         <a class="nav-link" href={% url "accounts:register" %}>Register</a>
       </li>
-      <li class="nav-item active">
-          <a class="nav-link" href={% url "logout" %}>Logout</a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="leaderboards.html">LeaderBoards</span></a>
-      </li>
+
+      {% endif %}
      <!--  <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Dropdown

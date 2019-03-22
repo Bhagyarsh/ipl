@@ -25,4 +25,4 @@ def questionform(request):
             if form.is_valid():
                 form.save()
             return redirect('/')
-        return render(request, 'registration/signup.html', {"form": form})
+        return render(request, 'questions.html', {"form": form})
