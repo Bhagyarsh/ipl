@@ -3,8 +3,8 @@ from django.db.models import Q
 from django.contrib import admin
 from iplcrew.models import IPLTeam, iplplayer
 from .models import question, match
-
-
+from django.contrib.auth import get_user_model
+user = get_user_model()
 class questionAdminForm(forms.ModelForm):
     class Meta:
         model = question
@@ -44,7 +44,7 @@ class questionAdminForm(forms.ModelForm):
 class questionForm(forms.ModelForm):
     class Meta:
         model = question
-        fields = ["winner", "tosswinner", "player_mostboundaries",
+        fields = ["Player","winner", "tosswinner", "player_mostboundaries",
                   "player_mostsixs", "player_mostwicktect", "player_mostrun", "player_mom"]
         # fields = "__all__"
         labels = {
@@ -59,11 +59,8 @@ class questionForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(questionForm, self).__init__(*args, **kwargs)
-        player_user = user.objects.get(email=request.user)
-        player = Player.objects.get(User=player_user.pk)
-        print(player_user.pk)
-        print(player.pk)
-        self.initial['Player'] = 'Initial value'
+       
+
         print(self.instance)
         
         if self.instance:
