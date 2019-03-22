@@ -11,15 +11,12 @@ user = get_user_model()
 
 @login_required
 def questionform(request):
-    instance = get_object_or_404(question, id=1)
+
     player_user = user.objects.get(email=request.user)
     player = Player.objects.get(User=player_user.pk)
-    print(player_user.pk)
-    print(player.pk)
-    
+    instance = get_object_or_404(question,Player=player )
     if instance:
         form = questionForm(request.POST or None, instance=instance)
-        form.fields['Player'].widget = forms.HiddenInput()
         form.initial['Player'] = player
         if request.method == "POST":
             if form.is_valid():

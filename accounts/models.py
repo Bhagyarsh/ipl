@@ -225,9 +225,7 @@ class Player(models.Model):
 #             instance.key = unique_key_generator(instance)
 #             print(instance.key)
     def __str__(self):
-        if self.name == None:
-            return "Error"
-        return self.name
+        return self.pk
 
 # pre_save.connect(pre_save_email_activation, sender=EmailActivation)
 

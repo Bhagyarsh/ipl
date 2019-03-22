@@ -44,7 +44,7 @@ class questionAdminForm(forms.ModelForm):
 class questionForm(forms.ModelForm):
     class Meta:
         model = question
-        fields = ["Player","winner", "tosswinner", "player_mostboundaries",
+        fields = ["winner", "tosswinner", "player_mostboundaries",
                   "player_mostsixs", "player_mostwicktect", "player_mostrun", "player_mom"]
         # fields = "__all__"
         labels = {
