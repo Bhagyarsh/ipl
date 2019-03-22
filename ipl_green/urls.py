@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(('accounts.urls', 'accounts'), namespace='accounts')),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('question/', include(('qaformmatch.urls','qaformmatch'),namespace='qaformmatch')),
 ]
