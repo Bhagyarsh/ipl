@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
+
 from random import randint
 from .utlis import random_string_generator, unique_key_generator
 from django.db.models.signals import pre_save, post_save
@@ -214,23 +215,28 @@ class EmailActivation(models.Model):
                 return sent_mail_
         return False
 
-
+class Player(models.Model):
+    User = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255,null=True)
+    points = models.IntegerField(default=0)
 # def pre_save_email_activation(sender, instance, *args, **kwargs):
 #     if not instance.activated and not instance.forced_expired:
 #         if not instance.key:
 #             instance.key = unique_key_generator(instance)
 #             print(instance.key)
-
+    def __str__(self):
+        if self.name == None:
+            return "Error"
+        return self.name
 
 # pre_save.connect(pre_save_email_activation, sender=EmailActivation)
 
+def user_post_save_user_create_reciever(sender, instance, created, *args, **kwargs):
+    if created:
+        
+        if instance.first_name and instance.last_name :
+            print(instance.get_full_name())
+            obj = Player.objects.create(User=instance,name=instance.get_full_name())
 
-# def post_save_user_create_reciever(sender, instance, created, *args, **kwargs):
-#     if created:
-#         print(instance)
-#         obj = EmailActivation.objects.create(user=instance,
-#                                              email=instance.email)
-#         print(obj.sent_activation_email())
+post_save.connect(user_post_save_user_create_reciever, sender=User)
 
-
-# post_save.connect(post_save_user_create_reciever, sender=User)
