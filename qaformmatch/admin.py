@@ -1,11 +1,13 @@
 from django.contrib import admin
-from .models import (question_toss,question_winner,question_mostrun,question_mostsixes,
-                        question_mostwickets,question_mostboundaries,question_mom)
+from django import forms
+from .models import (results,question, match)
+from iplcrew.models import IPLTeam,iplplayer
+from .forms import questionAdminForm
 # Register your models here.
-admin.site.register(question_toss)
-admin.site.register(question_winner)
-admin.site.register(question_mostrun)
-admin.site.register(question_mostsixes)
-admin.site.register(question_mostwickets)
-admin.site.register(question_mostboundaries)
-admin.site.register(question_mom)
+
+class questionAdmin(admin.ModelAdmin):
+    form = questionAdminForm
+
+admin.site.register(question,questionAdmin)
+admin.site.register(results)
+admin.site.register(match)
