@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% load crispy_forms_tags %}
 
 {% block title %} | Register Account {% endblock %}
@@ -7,6 +9,15 @@
 {% block content %}
 
 <div class="container mt-5">
+  <div class="team-img">
+    <img src="{% static 'images/IPL_teams_logo/csk1.jpg' %}">
+    <h1 style="color: grey;">VS</h1>
+    <img src="{% static 'images/IPL_teams_logo/mi3.jpg' %}">
+  </div>
+</div>
+
+<div class="container question-form">
+  <hr>
  <form method="post">
 
      {% csrf_token %}

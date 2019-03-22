@@ -1,8 +1,19 @@
 {% extends 'base.html' %}
+
+{% load static %}
+
 {% block content %}
 
 <div class="container mt-5">
-	<a href="/question/form" class="btn btn-primary">Predict and Win</a>
+  <div class="team-img">
+    <img src="{% static 'images/IPL_teams_logo/csk1.jpg' %}">
+    <h1 style="color: grey;">VS</h1>
+    <img src="{% static 'images/IPL_teams_logo/mi3.jpg' %}">
+  </div>
+</div>
+
+<div class="container mt-5">
+	<a href="/question/form" class="btn btn-primary" style="display: flex; justify-content: center;">Predict and Win</a>
 </div>
 
 {% endblock %}
