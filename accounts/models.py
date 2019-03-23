@@ -219,13 +219,8 @@ class Player(models.Model):
     User = models.ForeignKey(to=User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255,null=True)
     points = models.IntegerField(default=0)
-# def pre_save_email_activation(sender, instance, *args, **kwargs):
-#     if not instance.activated and not instance.forced_expired:
-#         if not instance.key:
-#             instance.key = unique_key_generator(instance)
-#             print(instance.key)
     def __str__(self):
-        return self.pk
+        return str(self.pk)
 
 # pre_save.connect(pre_save_email_activation, sender=EmailActivation)
 

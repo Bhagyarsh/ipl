@@ -32,15 +32,6 @@ class questionAdminForm(forms.ModelForm):
             self.fields['player_mostsixs'].queryset = iplplayer.objects.filter(
                 Q(Teamname=pk1) | Q(Teamname=pk2))
 
-
-# 1. Who will win the toss?
-# 2. Select winner team for today's Ipl match.
-# 3. Which player will score most runs?
-# 4. Which player will take the most wickets?
-# 5. Which player will hit the most number of sixes?
-# 6. Which player will hit most number of boundaries?
-# 7. Who will man of the match?
-
 class questionForm(forms.ModelForm):
     class Meta:
         model = question
