@@ -3,6 +3,7 @@ from django import forms
 from iplcrew.models import IPLTeam, iplplayer
 from django.contrib.auth import get_user_model
 from django.db.models.signals import pre_save,post_save
+
 User = get_user_model()
 
 
@@ -86,10 +87,11 @@ def match_post_save_receiver(sender, instance,created, *args, **kwargs):
                 match=instance, team1=instance.team_1, team2=instance.team_2)
 
 def result_post_save_receiver(sender, instance,created, *args, **kwargs):
+ 
     print(instance)
     print("++++++++++++++++++")
     print(instance.done)
-    if not instance.done and instance.done != None:
+    if  instance.done and instance.done != None:
         match = instance.match 
         questions = question.objects.filter(match=match)
 

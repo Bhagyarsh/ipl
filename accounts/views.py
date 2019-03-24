@@ -1,10 +1,18 @@
 from django.shortcuts import render,redirect
 from .forms import RegisterFormSession
-
+from datetime import datetime
 from .models import Player
-
+from qaformmatch.models import match
 def home(request):
-    return render(request,'home.html')
+    now = datetime.now()
+    t_day = now.date()
+    t_time = now.time()
+    m1 = match.objects.filter(startdate=t_day)
+    print(m1[0].starttime)
+    print(type(m1[0].starttime))
+    print(m1.count())
+    
+    return render(request,'home.html',{"qs":m1[0]})
 
 def signup(request):
     if request.method == "POST":
@@ -20,5 +28,4 @@ def signup(request):
 
 def leaderboards(request):
 	qs = Player.objects.all()
-
 	return render(request, 'leaderboards.html',{"qs":qs})

@@ -3,22 +3,29 @@
 {% load static %}
 
 {% block content %}
+<div class="container mt-5">
+<table class="table">
+  <thead style="width:100%"  class="thead-dark">
+    <tr>
+      <th class="bg-primary" scope="col">#</th>
+      <th class="bg-primary" scope="col">Name</th>
+      <th class="bg-primary" scope="col">Points</th>
+    </tr>
+  </thead>
+  <tbody>
 
-<table style="width:90%">
-  <tr>
-    <th>Serial no.</th>
-    <th>Name</th> 
-    <th>Points</th>
-  </tr>
 
   {% for qs in qs %}
-  <tr>
-    <td>{{qs.count}}</td>
-    <td>{{qs.name}}</td>
-    <td>{{qs.points}}</td>
-  </tr>
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td>{{qs.name}}</td>
+      <td>{{qs.points}}</td>
+    </tr>
   {% endfor %}
 
+  </tbody>
 </table>
 
+
+ </div>
 {% endblock %}

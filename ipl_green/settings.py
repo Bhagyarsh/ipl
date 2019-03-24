@@ -141,5 +141,5 @@ STATICFILES_DIRS = [
 ]
 MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
-
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 from .rest_settings import *

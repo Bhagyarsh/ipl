@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.db.models.signals import pre_save,post_save
 
 # Create your models here.
 choices=[("bat", "Batsman"),
@@ -13,7 +13,7 @@ choices_team=[("CSK", "Chennai Super Kings"),
         ("KKR","Kolkata Knight Riders"),
         ("RR","Rajasthan Royals"),
         ("MI","Mumbai Indians"),
-        ("RBC","Royal Challengers Bangalore"),
+        ("RCB","Royal Challengers Bangalore"),
         ("SRH","Sunrisers Hyderabad	")]
 class iplplayer(models.Model):
     Teamname = models.ForeignKey(to="IPLTeam" , on_delete=models.CASCADE,related_name="team")  
@@ -33,6 +33,7 @@ class ipletable(models.Model):
 
 class IPLTeam(models.Model):
     Teamname = models.CharField(max_length = 120,choices=choices_team)
+    logo = models.ImageField(null=True,upload_to='media/Team_logo/',blank=True)
     def __str__(self):              
         return self.Teamname
 
@@ -40,3 +41,8 @@ class IPLTeam(models.Model):
 
 
 
+def IPLTeam_pre_save_receiver(sender, instance, *args, **kwargs):
+    image_path = "Team_logo/" +  str(instance.Teamname) +".png"
+    instance.logo = image_path
+    
+pre_save.connect(IPLTeam_pre_save_receiver, sender=IPLTeam)

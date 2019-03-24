@@ -6,9 +6,9 @@
 
 <div class="container mt-5">
   <div class="team-img">
-    <img src="{% static 'images/IPL_teams_logo/csk1.jpg' %}">
+    <img src={{MEDIA_URL}}{{qs.team_1.logo.url}}>
     <h1 style="color: grey;">VS</h1>
-    <img src="{% static 'images/IPL_teams_logo/mi3.jpg' %}">
+    <img src={{MEDIA_URL}}{{qs.team_2.logo.url}}>
   </div>
 </div>
 
