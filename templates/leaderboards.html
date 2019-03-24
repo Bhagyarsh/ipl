@@ -11,11 +11,11 @@
     <th>Points</th>
   </tr>
 
-  {% for qs in qs %}
+  {% for user in qs %}
   <tr>
-    <td>{{qs.count}}</td>
-    <td>{{qs.name}}</td>
-    <td>{{qs.points}}</td>
+    <td>{{forloop.counter}}</td>
+    <td>{{user.name}}</td>
+    <td>{{user.points}}</td>
   </tr>
   {% endfor %}
 
