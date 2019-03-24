@@ -3,11 +3,22 @@
 {% load static %}
 
 {% block content %}
-{% for user in qs %}
-	
-	{{ user.name }}
-	{{ user.points }}
-	<br>
-{% endfor %}
+
+<table style="width:90%">
+  <tr>
+    <th>Serial no.</th>
+    <th>Name</th> 
+    <th>Points</th>
+  </tr>
+
+  {% for qs in qs %}
+  <tr>
+    <td>{{qs.count}}</td>
+    <td>{{qs.name}}</td>
+    <td>{{qs.points}}</td>
+  </tr>
+  {% endfor %}
+
+</table>
 
 {% endblock %}

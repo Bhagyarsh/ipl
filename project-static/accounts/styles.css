@@ -40,3 +40,9 @@ footer p {
 	height: 100px;
 }
 
+table, th, td {
+	margin: 5%;
+  	border: 1px solid black;
+}
+
+
