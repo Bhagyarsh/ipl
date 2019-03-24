@@ -19,7 +19,6 @@ def signup(request):
 
 
 def leaderboards(request):
-	qs = Player.objects.points(request.user)
-	qs1 = Player.points
-	print(qs1,'qs1')
+	qs = Player.objects.all()
+
 	return render(request, 'leaderboards.html',{"qs":qs})

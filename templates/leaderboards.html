@@ -3,11 +3,11 @@
 {% load static %}
 
 {% block content %}
-
-{% for qs in qs %}
+{% for user in qs %}
 	
-	{{ qs }}
-
+	{{ user.name }}
+	{{ user.points }}
+	<br>
 {% endfor %}
 
 {% endblock %}
