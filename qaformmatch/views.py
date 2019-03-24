@@ -23,3 +23,6 @@ def questionform(request):
                 form.save()
             return redirect('/')
         return render(request, 'questions.html', {"form": form})
+
+
+

@@ -215,12 +215,33 @@ class EmailActivation(models.Model):
                 return sent_mail_
         return False
 
+
+class PlayerManager(models.Manager):
+
+    def points(self, user):
+        # obj, created = Player.objects.get_or_create(User=user)
+        # qs = obj
+        # print(qs,'qs')
+        # return 0
+        pass
+
+
+
+
 class Player(models.Model):
     User = models.ForeignKey(to=User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255,null=True)
     points = models.IntegerField(default=0)
     def __str__(self):
         return str(self.pk)
+
+    objects = PlayerManager()
+
+
+    @property
+    def points(self):
+        return self.points
+    
 
 # pre_save.connect(pre_save_email_activation, sender=EmailActivation)
 
