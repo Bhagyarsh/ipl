@@ -15,12 +15,21 @@
   <tbody>
 
 
+<<<<<<< HEAD
   {% for qs in qs %}
     <tr>
       <th scope="row">{{ forloop.counter }}</th>
       <td>{{qs.name}}</td>
       <td>{{qs.points}}</td>
     </tr>
+=======
+  {% for user in qs %}
+  <tr>
+    <td>{{forloop.counter}}</td>
+    <td>{{user.name}}</td>
+    <td>{{user.points}}</td>
+  </tr>
+>>>>>>> a9f2eaf0e94e67d7fb0a9a180ff310c15f7f5b12
   {% endfor %}
 
   </tbody>

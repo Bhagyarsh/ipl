@@ -2,7 +2,7 @@
 
 
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #223577;">
-  <a class="navbar-brand" href="#"><img src="{% static 'images/ipl.jpeg' %}"></a>
+  <a class="navbar-brand" href="{% url "accounts:home" %}"><img src="{% static 'images/ipl.jpeg' %}"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -17,7 +17,11 @@
         <a class="nav-link" href="/question/form">Play</a>
       </li>
       <li class="nav-item active">
+<<<<<<< HEAD
         <a class="nav-link" href={% url "accounts:leaderboards" %}>Leader Boards</a>
+=======
+        <a class="nav-link" href="/leaderboards">LeaderBoards</a>
+>>>>>>> a9f2eaf0e94e67d7fb0a9a180ff310c15f7f5b12
       </li>
       <li class="nav-item active">
           <a class="nav-link" href={% url "logout" %}>Logout</a>
