@@ -22,11 +22,15 @@
      <div class="my-form">
         {{form|crispy}}
      </div>
-
-       <hr> <button type="submit" class="btn btn-success">Login</button>
+        
+       <hr>
+       <div style="display: flex;justify-content: space-around;">
+         <button style="margin: auto;" type="submit" class="btn btn-success">Login</button>
+         <a href={% url 'accounts:register' %}>Register</a> 
+       </div>
     </form>    
     </div>
-  </div> 
+  </div>
 </div>
 
 {% endblock %}
