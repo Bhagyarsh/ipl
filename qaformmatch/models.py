@@ -87,7 +87,6 @@ def match_post_save_receiver(sender, instance,created, *args, **kwargs):
                 match=instance, team1=instance.team_1, team2=instance.team_2)
 
 def result_post_save_receiver(sender, instance,created, *args, **kwargs):
- 
     print(instance)
     print("++++++++++++++++++")
     print(instance.done)
@@ -129,7 +128,6 @@ def result_post_save_receiver(sender, instance,created, *args, **kwargs):
                 points+=2
             if player_mom == instance.player_mom:
                 points+=2
-            
             print("================================")
             print(points)
             print(player)

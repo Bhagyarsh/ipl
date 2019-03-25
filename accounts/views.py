@@ -8,11 +8,12 @@ def home(request):
     t_day = now.date()
     t_time = now.time()
     m1 = match.objects.filter(startdate=t_day)
-    print(m1[0].starttime)
-    print(type(m1[0].starttime))
-    print(m1.count())
-    
-    return render(request,'home.html',{"qs":m1[0]})
+    mt = m1.count()
+    if mt != 0 :
+        print(m1[0].starttime)
+        print(type(m1[0].starttime))
+        print(m1.count())
+        return render(request,'home.html',{"qs":m1[0]})
 
 def signup(request):
     if request.method == "POST":
