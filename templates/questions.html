@@ -17,18 +17,22 @@
   </div>
 </div>
 
-<div class="container question-form">
+<div class="container mt-2 question-form">
   <hr>
- <form method="post">
+  <form method="post">
 
-     {% csrf_token %}
-     
-     <div class="my-form">
-        {{form|crispy}}
-     </div>
+    {% csrf_token %}
 
-       <hr> <button style="margin-bottom: 15%;" type="submit" class="btn btn-success">Submit</button>
-    </form>    
+    <div class="my-form">
+      {{form|crispy}}
+    </div>
+
+    <div class="row">
+      <div class="col text-center">
+        <button style="margin-bottom: 15%; " type="submit" class="btn btn-success">Submit</button>
+      </div>
+    </div>
+  </form>
 </div>
 
 {% endblock %}
