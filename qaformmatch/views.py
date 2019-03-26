@@ -24,7 +24,8 @@ def questionform(request):
             dif =  dif -timedelta(hours=today_time.hour,minutes=today_time.minute) 
             if (dif.days) < 0 :
                 return render(request, 'home.html',{"qs":m1[0]})
-    instance = question.objects.get(match=m1[0])
+            
+    instance = question.objects.get(match=m1[0],Player=player)
     if instance:
         form = questionForm(request.POST or None, instance=instance)
         form.initial['Player'] = player
