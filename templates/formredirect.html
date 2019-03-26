@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="container mt-5">
+  
+    <div class="alert alert-info">
+        <strong> Your responses are been saved successfully</strong> <br>
+        To go back to home page <a href={% url 'accounts:home' %} class="alert-link">click here</a>
+        <br>
+        To Check  or edit your responses   click here <a href={% url 'qaformmatch:qform' %} class="alert-link">click here</a>
+        
+
+    </div>
+</div>
+
+{% endblock %}
