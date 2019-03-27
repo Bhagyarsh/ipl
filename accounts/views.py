@@ -9,11 +9,14 @@ def home(request):
     t_time = now.time()
     m1 = match.objects.filter(startdate=t_day)
     mt = m1.count()
+    return render(request,'nomatch.html')
     if mt != 0 :
         print(m1[0].starttime)
         print(type(m1[0].starttime))
         print(m1.count())
         return render(request,'home.html',{"qs":m1[0]})
+    else :
+        return render(request,'nomatch.html')
 
 def signup(request):
     if request.method == "POST":

@@ -3,7 +3,6 @@ from django.db import models
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
-
 from random import randint
 from .utlis import random_string_generator, unique_key_generator
 from django.db.models.signals import pre_save, post_save
@@ -198,7 +197,6 @@ class EmailActivation(models.Model):
                     "path": path,
                     "email": self.email
                 }
-
                 txt_ = get_template("emails/verify.txt").render(context)
                 html_ = get_template("emails/verify.html").render(context)
                 subject = '1-Click Email verifications'
@@ -214,12 +212,6 @@ class EmailActivation(models.Model):
 
                 return sent_mail_
         return False
-
-
-
-
-
-
 
 class Player(models.Model):
     User = models.ForeignKey(to=User, on_delete=models.CASCADE)
@@ -237,5 +229,16 @@ def user_post_save_user_create_reciever(sender, instance, created, *args, **kwar
             print(instance.get_full_name())
             obj = Player.objects.create(User=instance,name=instance.get_full_name())
 
+
+def player_post_save_user_create_reciever(sender, instance, created, *args, **kwargs):
+    if created:
+        from qaformmatch.models import match,question
+        from datetime import datetime
+        ms = match.objects.filter(startdate = datetime.now().date())
+        for field in ms:
+            q = question.objects.create(
+            match=field, team1=field.team_1,Player=instance, team2=field.team_2)
+            
+post_save.connect(player_post_save_user_create_reciever, sender=Player)
 post_save.connect(user_post_save_user_create_reciever, sender=User)
 

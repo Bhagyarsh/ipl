@@ -14,34 +14,52 @@ def questionform(request):
     player_user = user.objects.get(email=request.user)
     player = Player.objects.get(User=player_user.pk)
     m1 = match.objects.filter(startdate = datetime.now().date())
+    print(m1.count())
+    for i in m1:
+        print(i)
     now_time = datetime.now().time()
     num = m1.count()
+    m1_done = False
     if int(num)>0:
         if int(num) == 1:
             starttime = (m1[0].starttime) 
-            dif = timedelta(hours=starttime.hour,minutes=starttime.minute) - timedelta(hours=1,minutes=45)
+            dif = timedelta(hours=starttime.hour,minutes=starttime.minute) - timedelta(hours=0,minutes=45)
             today_time = datetime.today().time() 
             dif =  dif -timedelta(hours=today_time.hour,minutes=today_time.minute) 
+            print("+++++")
+            print(dif )
+          
+
             if (dif.days) < 0 :
+                m1_done = True
                 return render(request, 'notavailable.html')
         if int(num) == 2:
             starttime = (m1[0].starttime) 
-            dif = timedelta(hours=starttime.hour,minutes=starttime.minute) - timedelta(hours=1,minutes=45)
+            dif = timedelta(hours=starttime.hour,minutes=starttime.minute) - timedelta(hours=0,minutes=45)
             today_time = datetime.today().time() 
             dif =  dif -timedelta(hours=today_time.hour,minutes=today_time.minute) 
-            m1_done = True
-            if m1_done:
-                if (dif.days) < 0 :
-                    return render(request, 'notavailable.html')
-                
-                starttime = (m1[1].starttime) 
-                dif = timedelta(hours=starttime.hour,minutes=starttime.minute) - timedelta(hours=1,minutes=45)
-                today_time = datetime.today().time() 
-                dif =  dif -timedelta(hours=today_time.hour,minutes=today_time.minute) 
-                if (dif.days) < 0 :
-                    return render(request, 'notavailable.html')
+            if (dif.days) < 0 :
+                m1_done = True
+                return render(request, 'notavailable.html')
+            starttime = (m1[1].starttime) 
+            dif = timedelta(hours=starttime.hour,minutes=starttime.minute) - timedelta(hours=0,minutes=45)
+            today_time = datetime.today().time() 
+            dif =  dif -timedelta(hours=today_time.hour,minutes=today_time.minute) 
+            print("---------------")
+            print(dif )
+            
 
-    instance = question.objects.get(match=m1[0],Player=player)
+            if (dif.days) < 0 :
+                return render(request, 'notavailable.html')
+    instance = None
+    if m1_done:
+        if int(num) == 2:
+            instance = question.objects.get(match=m1[1],Player=player)
+            obj = m1[1]
+        
+    else :
+        instance = question.objects.get(match=m1[0],Player=player)
+        obj = m1[0]
     if instance:
         form = questionForm(request.POST or None, instance=instance)
         form.initial['Player'] = player
@@ -49,7 +67,7 @@ def questionform(request):
             if form.is_valid():
                 form.save()
             return render(request, 'formredirect.html')
-        return render(request, 'questions.html', {"form": form,"qs":m1[0]})
+        return render(request, 'questions.html', {"form": form,"qs":obj})
 
 
 
