@@ -42,7 +42,7 @@ class question(models.Model):
         to=iplplayer, on_delete=models.CASCADE, related_name="P_mostrun", null=True)
     player_mostsixs = models.ForeignKey(
         to=iplplayer, on_delete=models.CASCADE, related_name="P_mostsixs", null=True)
-
+    points =  models.IntegerField(default=0,blank=True,null=True)
     # def __str__(self):
     #     return self.match
 

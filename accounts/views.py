@@ -3,6 +3,8 @@ from .forms import RegisterFormSession
 from datetime import datetime
 from .models import Player
 from qaformmatch.models import match
+
+
 def home(request):
     now = datetime.now()
     t_day = now.date()
