@@ -34,5 +34,5 @@ def signup(request):
 
 
 def leaderboards(request):
-	qs = Player.objects.all()
+	qs = Player.objects.all().order_by('-points')
 	return render(request, 'leaderboards.html',{"qs":qs})
