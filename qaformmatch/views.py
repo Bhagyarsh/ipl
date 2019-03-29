@@ -15,6 +15,8 @@ def questionform(request):
     player = Player.objects.get(User=player_user.pk)
     m1 = match.objects.filter(startdate = datetime.now().date())
     print(m1.count())
+    if (m1.count() == 0 ):
+        return render(request, 'notavailable.html')
     for i in m1:
         print(i)
     now_time = datetime.now().time()

@@ -15,26 +15,25 @@ class resultAdminForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(resultAdminForm, self).__init__(*args, **kwargs)
-        if not  self.instance.done :
-            if self.instance:
-                team1 = self.instance.team1
-                team2 = self.instance.team2
-                self.fields['winner'].queryset = IPLTeam.objects.filter(
-                    Q(Teamname=team1) | Q(Teamname=team2))
-                self.fields['tosswinner'].queryset = IPLTeam.objects.filter(
-                    Q(Teamname=team1) | Q(Teamname=team2))
-                pk1 = IPLTeam.objects.get(Teamname=team1)
-                pk2 = IPLTeam.objects.get(Teamname=team2)
-                self.fields['player_mom'].queryset = iplplayer.objects.filter(
-                    Q(Teamname=pk1) | Q(Teamname=pk2))
-                self.fields['player_mostboundaries'].queryset = iplplayer.objects.filter(
-                    Q(Teamname=pk1) | Q(Teamname=pk2))
-                self.fields['player_mostrun'].queryset = iplplayer.objects.filter(
-                    Q(Teamname=pk1) | Q(Teamname=pk2))
-                self.fields['player_mostwicktect'].queryset = iplplayer.objects.filter(
-                    Q(Teamname=pk1) | Q(Teamname=pk2))
-                self.fields['player_mostsixs'].queryset = iplplayer.objects.filter(
-                    Q(Teamname=pk1) | Q(Teamname=pk2))
+        if self.instance:
+            team1 = self.instance.team1
+            team2 = self.instance.team2
+            self.fields['winner'].queryset = IPLTeam.objects.filter(
+                Q(Teamname=team1) | Q(Teamname=team2))
+            self.fields['tosswinner'].queryset = IPLTeam.objects.filter(
+                Q(Teamname=team1) | Q(Teamname=team2))
+            pk1 = IPLTeam.objects.get(Teamname=team1)
+            pk2 = IPLTeam.objects.get(Teamname=team2)
+            self.fields['player_mom'].queryset = iplplayer.objects.filter(
+                Q(Teamname=pk1) | Q(Teamname=pk2))
+            self.fields['player_mostboundaries'].queryset = iplplayer.objects.filter(
+                Q(Teamname=pk1) | Q(Teamname=pk2))
+            self.fields['player_mostrun'].queryset = iplplayer.objects.filter(
+                Q(Teamname=pk1) | Q(Teamname=pk2))
+            self.fields['player_mostwicktect'].queryset = iplplayer.objects.filter(
+                Q(Teamname=pk1) | Q(Teamname=pk2))
+            self.fields['player_mostsixs'].queryset = iplplayer.objects.filter(
+                Q(Teamname=pk1) | Q(Teamname=pk2))
 
 
 class questionAdminForm(forms.ModelForm):

@@ -57,14 +57,14 @@ class results(models.Model):
         to=IPLTeam, on_delete=models.CASCADE, related_name="R_tosswinner", null=True)
     player_mom = models.ForeignKey(
         to=iplplayer, on_delete=models.CASCADE, related_name="R_momr", null=True)
-    player_mostboundaries = models.ForeignKey(
-        to=iplplayer, on_delete=models.CASCADE, related_name="R_mostboundaries", null=True)
-    player_mostwicktect = models.ForeignKey(
-        to=iplplayer, on_delete=models.CASCADE, related_name="R_mostwicktect", null=True)
-    player_mostrun = models.ForeignKey(
-        to=iplplayer, on_delete=models.CASCADE, related_name="R_mostrun", null=True)
-    player_mostsixs = models.ForeignKey(
-        to=iplplayer, on_delete=models.CASCADE, related_name="R_mostsixs", null=True)
+    player_mostboundaries = models.ManyToManyField(
+        to=iplplayer, related_name="R_mostboundaries")
+    player_mostwicktect = models.ManyToManyField(
+        to=iplplayer,related_name="R_mostwicktect")
+    player_mostrun = models.ManyToManyField(
+        to=iplplayer, related_name="R_mostrun")
+    player_mostsixs = models.ManyToManyField(
+        to=iplplayer, related_name="R_mostsixs")
     done = models.BooleanField(null=True,default=False)
     # def __str__(self):
     #     return self.match
@@ -87,9 +87,7 @@ def match_post_save_receiver(sender, instance,created, *args, **kwargs):
                 match=instance, team1=instance.team_1, team2=instance.team_2)
 
 def result_post_save_receiver(sender, instance,created, *args, **kwargs):
-    print(instance)
-    print("++++++++++++++++++")
-    print(instance.done)
+
     if  instance.done and instance.done != None:
         match = instance.match 
         questions = question.objects.filter(match=match)
@@ -98,14 +96,9 @@ def result_post_save_receiver(sender, instance,created, *args, **kwargs):
             print(que)
             print(que.winner)
             points = 0
-            player = que.Player
+            player = que.Player.pk
             print("---------------------------")
-            print(player)
-            print("pk {}".format(player))
-            from accounts.models import Player
-            p = Player.objects.get(pk=str(player))
-            print(p)
-            points = int(p.points)
+            points = 0
             winner = que.winner
             tosswinner = que.tosswinner
             player_mostboundaries = que.player_mostboundaries
@@ -113,26 +106,37 @@ def result_post_save_receiver(sender, instance,created, *args, **kwargs):
             player_mostwicktect = que.player_mostwicktect
             player_mostrun = que.player_mostrun
             player_mom = que.player_mom
-            print(winner,instance.winner)
+            
             if winner == instance.winner:
+                print(winner,instance.winner)   
                 points+=2
             if tosswinner == instance.tosswinner:
+                print(tosswinner,instance.tosswinner)   
                 points+=2
-            if player_mostboundaries == instance.player_mostboundaries:
+            if str(player_mostboundaries) in [ (i.name) for i in instance.player_mostboundaries.all()] :
+                print(player_mostboundaries,[ (i.name) for i in instance.player_mostboundaries.all()] )
                 points+=2
-            if player_mostsixs == instance.player_mostsixs:
+            if str(player_mostsixs) in [ (i.name) for i in instance.player_mostsixs.all()] :
+                print(player_mostsixs,[ (i.name) for i in instance.player_mostsixs.all()] )
                 points+=2
-            if player_mostwicktect == instance.player_mostwicktect:
+            print([ i.name for i in instance.player_mostwicktect.all()])
+            if str(player_mostwicktect) in [ (i.name) for i in instance.player_mostwicktect.all()] :
+                print(player_mostwicktect,[ (i.name) for i in instance.player_mostwicktect.all()] )
                 points+=2
-            if player_mostrun == instance.player_mostrun:
+            if str(player_mostrun) in [ (i.name) for i in instance.player_mostrun.all()] :
+                print(player_mostrun,[ (i.name) for i in instance.player_mostrun.all()] )
                 points+=2
             if player_mom == instance.player_mom:
                 points+=2
-            print("================================")
+            que.points = points
+            from accounts.models import Player
+            p = Player.objects.get(pk=str(player))
+            print(p)
+            pointsx = int(p.points)
+            pointsx += points
+            questions = question.objects.filter(match=match).update(points=str(points))
+            Player.objects.filter(pk=str(player)).update(points=str(pointsx))
             print(points)
-            print(player)
-            Player.objects.filter(pk=str(player)).update(points=str(points))
-            
 pre_save.connect(match_pre_save_receiver, sender=match)
 post_save.connect(match_post_save_receiver, sender=match)
 post_save.connect(result_post_save_receiver, sender=results)

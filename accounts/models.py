@@ -218,7 +218,7 @@ class Player(models.Model):
     name = models.CharField(max_length=255,null=True)
     points = models.IntegerField(default=0)
     def __str__(self):
-        return str(self.pk)
+        return str(self.name)
 
 # pre_save.connect(pre_save_email_activation, sender=EmailActivation)
 

@@ -11,5 +11,5 @@ class questionAdmin(admin.ModelAdmin):
 class resultAdmin(admin.ModelAdmin):
     form = resultAdminForm
 admin.site.register(match)
-admin.site.register(question,questionAdmin)
 admin.site.register(results,resultAdmin)
+admin.site.register(question,questionAdmin)
