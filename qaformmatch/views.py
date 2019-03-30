@@ -53,7 +53,9 @@ def questionform(request):
 
             if (dif.days) < 0 :
                 return render(request, 'notavailable.html')
-            if m1_done:
+            else :
+                m2_done = False
+            if m1_done and  m2_done:
                 return render(request, 'notavailable.html')
     instance = None
     if m1_done:
