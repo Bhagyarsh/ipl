@@ -42,7 +42,7 @@ def questionform(request):
             dif =  dif -timedelta(hours=today_time.hour,minutes=today_time.minute) 
             if (dif.days) < 0 :
                 m1_done = True
-                return render(request, 'notavailable.html')
+               
             starttime = (m1[1].starttime) 
             dif = timedelta(hours=starttime.hour,minutes=starttime.minute) - timedelta(hours=0,minutes=45)
             today_time = datetime.today().time() 
@@ -52,6 +52,8 @@ def questionform(request):
             
 
             if (dif.days) < 0 :
+                return render(request, 'notavailable.html')
+            if m1_done:
                 return render(request, 'notavailable.html')
     instance = None
     if m1_done:
